@@ -1,0 +1,1 @@
+# CI Demo [![Build status](https://ci.appveyor.com/api/projects/status/3uf7clugr32iwdg5?svg=true)](https://ci.appveyor.com/project/Tatyana0305/patterns)
