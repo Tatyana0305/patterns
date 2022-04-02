@@ -1,8 +1,8 @@
 import com.github.javafaker.Faker;
 import entitles.RegistrationInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.StringUtils;
 import utils.DataGenerator;
 
 import java.util.Locale;
@@ -23,8 +23,14 @@ public class TestWithFaker {
         printTestData(info);
     }
 
-    private void printTestData(String name, String phone, String cardNumber) {
-        System.out.println(StringUtils.repeat("=", 30));
-        System.out.println(name + "\n" + phone + "\n" + cardNumber);
+    private void printTestData(RegistrationInfo info){
+        System.out.println(info);
+
     }
+
+    private void printTestDataRepeat(String name, String phone, String cardNumber) {
+        System.out.print(StringUtils.repeat("=", 30));
+        System.out.print(name + "\n" + phone + "\n" + cardNumber);
+    }
+
 }
