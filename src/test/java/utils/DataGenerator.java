@@ -12,14 +12,17 @@ import java.util.Locale;
 public class DataGenerator {
 
     @UtilityClass
+
+
     public static class Registration {
         public static RegistrationInfo generateInfo(String locale) {
             Faker faker = new Faker(new Locale(locale));
             return new RegistrationInfo(faker.name().fullName(),
                     faker.phoneNumber().phoneNumber(),
-                    faker.finance().creditCard());
+                    faker.address().city());
 
         }
 
     }
+
 }
