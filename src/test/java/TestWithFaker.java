@@ -61,7 +61,7 @@ public class TestWithFaker {
 
         $x("//*[text()=\"Запланировать\"]").click();
         $("[data-test-id=success-notification]").should(Condition.visible);
-                Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
         LocalDate localDate2 = LocalDate.now().plusDays(5);
         DateTimeFormatter data2 = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String strData2 = localDate2.format(data2);
@@ -73,6 +73,55 @@ public class TestWithFaker {
 
 
         $("[data-test-id='replan-notification'] .button").click();
+        $("[data-test-id=success-notification]").should(Condition.visible);
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
+
+    }
+
+    @Test
+    public void shouldOrderCardForNotAvailableAddress() {
+        open("http://localhost:9999");
+        Configuration.holdBrowserOpen = true;
+        $("[data-test-id=city] input").setValue("Магнитогорск");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").val(strData);
+        $("[data-test-id=name] input").setValue(faker.name().fullName());
+        $("[data-test-id=phone] input").setValue(faker.phoneNumber().phoneNumber());
+        $("[data-test-id=agreement]").click();
+
+        $x("//*[text()=\"Запланировать\"]").click();
+        $("[data-test-id=success-notification]").should(Condition.visible);
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
+
+    }
+    @Test
+    public void shouldOrderCardForNotAvailableAddress2() {
+        open("http://localhost:9999");
+        Configuration.holdBrowserOpen = true;
+        $("[data-test-id=city] input").setValue("Новокузнецк");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").val(strData);
+        $("[data-test-id=name] input").setValue(faker.name().fullName());
+        $("[data-test-id=phone] input").setValue(faker.phoneNumber().phoneNumber());
+        $("[data-test-id=agreement]").click();
+
+        $x("//*[text()=\"Запланировать\"]").click();
+        $("[data-test-id=success-notification]").should(Condition.visible);
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
+
+    }
+    @Test
+    public void shouldOrderCardIfNameWidthInvalidCharacter () {
+        open("http://localhost:9999");
+        Configuration.holdBrowserOpen = true;
+        $("[data-test-id=city] input").setValue(faker.address().city());
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").val(strData);
+        $("[data-test-id=name] input").setValue("Фёдор");
+        $("[data-test-id=phone] input").setValue(faker.phoneNumber().phoneNumber());
+        $("[data-test-id=agreement]").click();
+
+        $x("//*[text()=\"Запланировать\"]").click();
         $("[data-test-id=success-notification]").should(Condition.visible);
         Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
 
