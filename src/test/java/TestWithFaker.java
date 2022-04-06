@@ -40,7 +40,7 @@ public class TestWithFaker {
 
     }
 
-    private void printTestData(RegistrationInfo info){
+    private void printTestData(RegistrationInfo info) {
         System.out.println(info);
         System.out.println(StringUtils.repeat("=", 30));
 
@@ -64,21 +64,22 @@ public class TestWithFaker {
         $("[data-test-id=phone] input").setValue(faker.phoneNumber().phoneNumber());
         $("[data-test-id=agreement]").click();
 
-        $x("//*[text()=\"Забронировать\"]").click();
-        $("[data-test-id=notification]")
-                .shouldHave(Condition.text("Успешно! Встреча успешно забронирована на " + strData),
-                        Duration.ofSeconds(15));                        //Загрузка не более 15 секунд
+        $x("//*[text()=\"Запланировать\"]").click();
+        $("[data-test-id=success-notification]").should(Condition.visible);
+                Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
         LocalDate localDate2 = LocalDate.now().plusDays(5);
         DateTimeFormatter data2 = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String strData2  = localDate2.format(data2);
+        String strData2 = localDate2.format(data2);
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").val(strData2);
         $("div .button").click();
-        $("[data-test-id='replan-notification'] .notification__content")
-                .should(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
+        $x("//*[@id=\"root\"]/div/div[2]/div[3]").should(Condition.visible);
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
+
+
         $("[data-test-id='replan-notification'] .button").click();
-        $("[data-test-id='success-notification'] .notification__content")
-                .should(Condition.text("Встреча успешно запланирована на " + strData2), Duration.ofSeconds(15));
+        $("[data-test-id=success-notification]").should(Condition.visible);
+        Duration.ofSeconds(15);                      //Загрузка не более 15 секунд
 
     }
-    }
+}
