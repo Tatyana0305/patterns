@@ -46,11 +46,6 @@ public class TestWithFaker {
 
     }
 
-    private void printTestData(String name, String phone, String city) {
-
-        System.out.print(StringUtils.repeat("=", 30));
-        System.out.print(name + "\n" + phone + "\n" + city);
-    }
 
     @Test
     public void shouldOrderCardBySpecificDay() {
