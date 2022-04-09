@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import entitles.RegistrationInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import utils.DataGenerator;
@@ -31,6 +32,13 @@ public class TestWithFaker {
         faker = new Faker(new Locale("ru"));
     }
 
+    @BeforeEach
+    void openBrowser(){
+        open("http://localhost:9999");
+        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1908х900";
+
+    }
 
     @Test
     void shouldGenerateTestDataUsingUtils() {
@@ -49,10 +57,8 @@ public class TestWithFaker {
 
     @Test
     public void shouldOrderCardBySpecificDay() {
-        open("http://localhost:9999");
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1908х900";
-        $("[data-test-id=city] input").setValue(faker.address().city());
+
+        $("[data-test-id=city] input"). setValue(faker.address().city());
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").val(strData);
         $("[data-test-id=name] input").setValue(faker.name().fullName());
@@ -80,8 +86,7 @@ public class TestWithFaker {
 
     @Test
     public void shouldOrderCardForNotAvailableAddress() {
-        open("http://localhost:9999");
-        Configuration.holdBrowserOpen = true;
+
         $("[data-test-id=city] input").setValue("Магнитогорск");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").val(strData);
@@ -96,8 +101,7 @@ public class TestWithFaker {
     }
     @Test
     public void shouldOrderCardForNotAvailableAddress2() {
-        open("http://localhost:9999");
-        Configuration.holdBrowserOpen = true;
+
         $("[data-test-id=city] input").setValue("Новокузнецк");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").val(strData);
@@ -112,8 +116,7 @@ public class TestWithFaker {
     }
     @Test
     public void shouldOrderCardIfNameWidthInvalidCharacter () {
-        open("http://localhost:9999");
-        Configuration.holdBrowserOpen = true;
+
         $("[data-test-id=city] input").setValue(faker.address().city());
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").val(strData);
